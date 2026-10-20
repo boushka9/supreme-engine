@@ -69,4 +69,8 @@ public abstract class Figure implements IntFigure{
         int r = rowDistance(newY);
         return (c == 0 && r > 0) || (c > 0 && r == 0);
     }
+
+    public abstract boolean verifyMove(ColType newX, int newY);
+
+    public abstract String toString();
 }
