@@ -1,20 +1,31 @@
-public class Rook extends ChessPiece {
+package chess.figures;
+
+import chess.enums.ChessColor;
+import chess.enums.LocationX;
+import chess.enums.PieceType;
+import chess.exceptions.InvalidMoveException;
+
+
+public class Rook extends Figure {
+    //extends: "I am a more specific version of this class"
+    // Rook is literally a more specific version of Figure. Easy. 
  
     public Rook() {
         super();
         setPieceType(PieceType.ROOK);
     }
  
-    public Rook(String color, LocationX column, int row) {
+    public Rook(ChessColor color, LocationX column, int row) {
         super(PieceType.ROOK, color, column, row);
     }
  
-    //implements exception
-   @Override 
-    public boolean verifyMove(LocationX newX, int newY) {
-        if (!isStraightMove(newX, newY)){
+   @Override // 
+    public Boolean moveTo(LocationX newX, int newY) {
+        // Rook moves horizontally or vertically
+        if (!isStraightMove(newX, newY)) {
             throw new InvalidMoveException("This placement is not valid");
-        }return isStraightMove(newX, newY);
+        }
+        return true;
     }
 
     @Override
