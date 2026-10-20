@@ -3,7 +3,7 @@ package chess.board;
 import chess.enums.LocationX;
 import chess.exceptions.InvalidCoordinateException;
 import chess.interfaces.IntChessBoard;
-//implements: "I promise to provide this behavior"
+//implements: "I promise to provide this behavior" ..to verify the coordinate is w/in the board boundaries
 
 
 public class ChessBoard implements IntChessBoard {

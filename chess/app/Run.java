@@ -1,3 +1,5 @@
+package chess.app;
+
 import chess.board.ChessBoard;
 import chess.enums.*;
 import chess.exceptions.*;
@@ -8,6 +10,12 @@ import java.util.Scanner;
 /*Emma Boushka
 Clarissa Esparza
 Alfredo Herrera
+
+
+
+Run by: 
+    javac -d out $(find chess -name "*.java")
+    java -cp out chess.app.Run
  */
 public class Run{
     // dec global scanner/board, all pieces use them
@@ -22,10 +30,27 @@ public class Run{
         Bishop bishop = null;
         int count = 0;
 
+        // one flag per piece type, ordinal() is the enum's position (PAWN = 0 ... KING = 5), handles case where no bishop is entered, even tho there are six prompt rounds 
+        boolean[] usedTypes = new boolean[PieceType.values().length];
+
         // Building out one piece (but 6 timse)
         for (int i = 1; i <= 6; i++) {
             System.out.println("\nPiece " + i + " of 6 ");
-            PieceType type = promptForPieceType();
+            PieceType type = null;
+
+            // each of the 6 types is used exactly once
+            boolean validType = false;
+    
+            while (!validType) {
+                type = promptForPieceType();
+                if (usedTypes[type.ordinal()]) {
+                    System.out.println(type + " was already entered, each piece type is used once.");
+                } else {
+                    usedTypes[type.ordinal()] = true;
+                    validType = true;
+                }
+            }                                   // look group... .ordinal() ...is not a good fix, it's bad practice in most cases, we're probably going to have to change this approach for any future changes -danny
+
             ChessColor color = promptForColor();
 
             LocationX column = null;
@@ -102,16 +127,28 @@ public class Run{
         }
     }
 
+    // split into helper that throws exception when the prompt loop catches, couldn't fix it any other way 
+
     // enum validated input, use built in enum.pieceType.valueOf to check if its a match to something in the enum
     private static PieceType promptForPieceType() {
         while (true) {
             System.out.print("Select piece (PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING): ");
             String input = scanner.nextLine().trim().toUpperCase();
             try {
-                return PieceType.valueOf(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println(new InvalidPieceNameException(input + " is not a chess piece").getMessage());
+                return parsePieceType(input);
+            } catch (InvalidPieceNameException e) {
+                System.out.println(e.getMessage());
             }
+        }
+    }
+
+    // valueOf throws a built in IllegalArgumentException for a non-match,
+    // translate it into our own InvalidPieceNameException so the caller handles one custom type
+    private static PieceType parsePieceType(String input) {
+        try {
+            return PieceType.valueOf(input);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidPieceNameException(input + " is not a chess piece");
         }
     }
 
@@ -175,13 +212,16 @@ public class Run{
 
 /* File structre for packages:
 git repo/
-  run.java                      (default access point: no package line)
   chess/
+    app/          Run.java                      
     enums/        PieceType.java  ChessColor.java  LocationX.java
     exceptions/   InvalidPieceNameException.java  InvalidMoveException.java  InvalidCoordinateException.java
     interfaces/   IntFigure.java  IntBishop.java  IntChessBoard.java
     figures/      Figure.java  Rook.java  ...
     board/        ChessBoard.java
+
+
+  /out and .gitignore out here, don't track .class, etc
 
 */
 
