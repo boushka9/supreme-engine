@@ -1,17 +1,9 @@
-public class Bishop extends ChessPiece {
-    //already set up piecetype and chesspiece w the works
-    public Bishop() {
-        super();
-        setPieceType(PieceType.BISHOP);
-    }
-    // use the piece type enum to build specific bishop piece 
-    public Bishop(String color, ColType column, int row) {
-        super(PieceType.BISHOP, color, column, row);
-    }
+package chess.interfaces;
+import chess.enums.LocationX;
 
-    @Override
-    public boolean verifyMove(ColType newX, int newY) {
-        // Bishop moves diagonally
-        return isDiagonalMove(newX, newY);
-    }
+// Promise that the bishop will tell you if the bishop can move there 
+public interface IntBishop {
+    Boolean moveToBishop(LocationX x, int y);
 }
+
+// IntBishop == Bishop-style movement	->  Bishop & Queen implement it too

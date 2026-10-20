@@ -1,5 +1,5 @@
+package chess.enums;
 public enum ColType{
-
     A,
     B,
     C,
