@@ -5,12 +5,12 @@ public class Pawn extends Figure{
         setPieceType(PieceType.PAWN);
     }
 
-    public Pawn(String color, ColType column, int row) {
+    public Pawn(String color, LocationX column, int row) {
         super(PieceType.PAWN, color, column, row);
     }
 
     @Override
-    public boolean verifyMove(ColType newX, int newY) {
+    public boolean verifyMove(LocationX newX, int newY) {
         // White moves up (+1), Black moves down (-1); one square, same column
         int direction;
         if (getColor().equals("WHITE")) {

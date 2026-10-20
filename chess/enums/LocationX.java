@@ -1,5 +1,5 @@
 package chess.enums;
-public enum ColType{
+public enum LocationX{
     A,
     B,
     C,

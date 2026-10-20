@@ -2,14 +2,14 @@ public abstract class Figure implements IntFigure{
 
     private PieceType type;
     private String color;
-    private ColType column;
+    private LocationX column;
     private int row;
 
     //empty constructor
     public Figure(){}
 
     //constructor with new parameters
-    public Figure(PieceType typeIn, String colorIn, ColType x, int y){
+    public Figure(PieceType typeIn, String colorIn, LocationX x, int y){
         this.type = typeIn;
         this.color = color;
         this.column = x;
@@ -25,7 +25,7 @@ public abstract class Figure implements IntFigure{
         return this.color;
     }
 
-    public ColType getX(){
+    public LocationX getX(){
         return this.column;
     }
 
@@ -46,7 +46,7 @@ public abstract class Figure implements IntFigure{
         this.color = color;
     }
 
-    public void setColumn(ColType x){
+    public void setColumn(LocationX x){
         this.column = x;
     }
 
@@ -55,7 +55,7 @@ public abstract class Figure implements IntFigure{
     }
     
     //helper methods
-    protected int columnDistance(ColType newX) {
+    protected int columnDistance(LocationX newX) {
         return Math.abs(newX.ordinal() - column.ordinal());
     }
 
@@ -64,13 +64,13 @@ public abstract class Figure implements IntFigure{
     }
 
     // Horizontal or vertical, and not staying in place
-    protected boolean isStraightMove(ColType newX, int newY) {
+    protected boolean isStraightMove(LocationX newX, int newY) {
         int c = columnDistance(newX);
         int r = rowDistance(newY);
         return (c == 0 && r > 0) || (c > 0 && r == 0);
     }
 
-    public abstract boolean verifyMove(ColType newX, int newY);
+    public abstract boolean verifyMove(LocationX newX, int newY);
 
     public abstract String toString();
 }

@@ -5,13 +5,13 @@ public class Rook extends ChessPiece {
         setPieceType(PieceType.ROOK);
     }
  
-    public Rook(String color, ColType column, int row) {
+    public Rook(String color, LocationX column, int row) {
         super(PieceType.ROOK, color, column, row);
     }
  
     //implements exception
    @Override 
-    public boolean verifyMove(ColType newX, int newY) {
+    public boolean verifyMove(LocationX newX, int newY) {
         if (!isStraightMove(newX, newY)){
             throw new InvalidMoveException("This placement is not valid");
         }return isStraightMove(newX, newY);
