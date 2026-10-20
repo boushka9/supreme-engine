@@ -9,9 +9,16 @@ public class Rook extends ChessPiece {
         super(PieceType.ROOK, color, column, row);
     }
  
+    //implements exception
    @Override 
     public boolean verifyMove(ColType newX, int newY) {
-        // Rook moves horizontally or vertically
-        return isStraightMove(newX, newY);
+        if (!isStraightMove(newX, newY)){
+            throw new InvalidMoveException("This placement is not valid");
+        }return isStraightMove(newX, newY);
+    }
+
+    @Override
+    public String toString(){
+        return "Rook";
     }
 }
